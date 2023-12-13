@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 def inicio_view(request):
-    return HttpResponse("Bienvenidos!")
+    return render(request, 'AppSport/inicio.html')
 
 def socios_view(request):
     return render(request, 'AppSport/padre.html')
