@@ -2,11 +2,10 @@
 
 
 {% block contenidoQueCambia %}
-    <body style="background-color: green;">
-        <form action="/AppSport/socio/buscar" method="POST">
-            {% csrf_token %}
-            {{ form.as_table }}
-            <input type="submit" value="Guardar">
+    <body>
+        <form action="{% url 'AppSport:socio-buscar' %}" method="POST">{% csrf_token %}
+            {{ formulario.as_table }}
+            <input type="submit" value="Ingresar">
         </form>
     </body>
 {% endblock %}

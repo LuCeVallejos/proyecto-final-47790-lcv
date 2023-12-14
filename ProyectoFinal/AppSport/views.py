@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import SocioBuscarFormulario, SocioFormulario
 from .models import Socio
 #from django import redirectttpResponse
@@ -33,14 +33,19 @@ def crearsocio_view(request):
                 nacimiento=informacion_limpia['nacimiento'],
                 )
             modelo.save()
-            return render(request, 'AppSport/inicio.html')
+            return redirect ("AppSport:inicio")
+            #return render(request, 'AppSport/inicio.html')
+        else:
+         # Add this return statement for the case when the form is not valid
+            contexto = {'form': formulario}
+            return render(request, 'AppSport/formulario_avanzado_socio.html', context=contexto)
 
 
 
 def socio_buscar_view(request):
     if request.method == "GET":
-        form = SocioBuscarFormulario()
-        return render(request, 'AppSport/formulario_avanzado_socio.html', context={"form": form})
+        formulario = SocioBuscarFormulario()
+        return render(request, 'AppSport/formulario_avanzado_socio.html', context={"form": formulario})
     else:
         formulario = SocioBuscarFormulario(request.POST)
         if formulario.is_valid():
@@ -49,4 +54,4 @@ def socio_buscar_view(request):
             for dni in Socio.objects.filter(dni=informacion["dni"]):
                 socios_filtrados.append(dni)
             contexto = {"dni": socios_filtrados}
-            return render(request, "AppSport/socios_list.html", context=contexto)
+            return render(request, "AppSport/socios_list.html", {"formulario": formulario})
