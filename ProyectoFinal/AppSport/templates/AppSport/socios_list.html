@@ -1,0 +1,17 @@
+{% extends "AppSport/padre.html" %}
+
+
+{% block contenidoQueCambia %}
+¡Aquí va la lista de socios!
+
+
+{% if socio %}
+<ul>
+    {% for socio in socio %}
+    <li>{{ socio.socio }} ({{ socio.dni }})</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+
+{% endblock %}
